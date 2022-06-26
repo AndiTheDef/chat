@@ -10,7 +10,7 @@ app.use(cors());
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://andithedef.github.io/chat/",
     methods: ["GET", "POST"],
   },
 });
@@ -34,4 +34,10 @@ io.on("connection", (socket) => {
 
 server.listen(3001, () => {
   console.log("Running");
+});
+
+app.use(express.static(__dirname)); //here is important thing - no static directory, because all static :)
+
+app.get("/*", function(req, res) {
+  res.sendFile(path.join(__dirname, "index.html"));
 });
